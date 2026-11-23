@@ -1,0 +1,101 @@
+{
+  "server": {
+    "endpoint": "opc.tcp://0.0.0.0:4840",
+    "application_name": "Wago PFC100 Simulator",
+    "application_uri": "urn:wago:pfc100:simulator",
+    "namespace": "http://wago.com/pfc100/simulator",
+    "root_object": "PFC100"
+  },
+  "points": [
+    {
+      "name": "Device.SerialNumber",
+      "datatype": "String",
+      "value": "750-8212/0000-0001",
+      "writable": false,
+      "description": "Numero de serie de l'automate simule"
+    },
+    {
+      "name": "Device.Firmware",
+      "datatype": "String",
+      "value": "FW 22 (03.08.07)",
+      "writable": false
+    },
+    {
+      "name": "Device.Temperature",
+      "datatype": "Float",
+      "value": 42.0,
+      "unit": "degC",
+      "min": 0.0,
+      "max": 70.0,
+      "writable": false,
+      "simulation": { "mode": "random", "min": 38.0, "max": 48.0, "interval_ms": 1000 }
+    },
+    {
+      "name": "DigitalInputs.DI0",
+      "datatype": "Boolean",
+      "value": false,
+      "description": "Entree TOR 0",
+      "simulation": { "mode": "toggle", "interval_ms": 2500 }
+    },
+    {
+      "name": "DigitalInputs.DI1",
+      "datatype": "Boolean",
+      "value": true,
+      "description": "Entree TOR 1"
+    },
+    {
+      "name": "DigitalOutputs.DO0",
+      "datatype": "Boolean",
+      "value": false,
+      "description": "Sortie TOR 0 (ecrivable)"
+    },
+    {
+      "name": "AnalogInputs.AI0",
+      "datatype": "Float",
+      "value": 20.0,
+      "unit": "degC",
+      "min": -20.0,
+      "max": 120.0,
+      "description": "Entree analogique 0 (simulation sinusoidale)",
+      "simulation": { "mode": "sine", "amplitude": 25.0, "period_s": 30.0, "interval_ms": 500 }
+    },
+    {
+      "name": "AnalogInputs.AI1",
+      "datatype": "Float",
+      "value": 0.0,
+      "unit": "%",
+      "min": 0.0,
+      "max": 100.0,
+      "description": "Entree analogique 1 en %"
+    },
+    {
+      "name": "AnalogOutputs.AO0",
+      "datatype": "Float",
+      "value": 0.0,
+      "unit": "%",
+      "min": 0.0,
+      "max": 100.0,
+      "description": "Sortie analogique 0 (ecrivable)"
+    },
+    {
+      "name": "Process.Counter",
+      "datatype": "UInt32",
+      "value": 0,
+      "description": "Compteur de pieces (increment toutes les secondes, boucle a 100)",
+      "simulation": { "mode": "increment", "step": 1, "interval_ms": 1000, "wrap": 100, "min": 0 }
+    },
+    {
+      "name": "Process.Running",
+      "datatype": "Boolean",
+      "value": true,
+      "writable": false
+    },
+    {
+      "name": "Process.Mode",
+      "datatype": "Int16",
+      "value": 1,
+      "description": "Mode de fonctionnement (cycle 1 -> 2 -> 3)",
+      "simulation": { "mode": "cycle", "values": [1, 2, 3], "interval_ms": 5000 }
+    }
+  ]
+}
